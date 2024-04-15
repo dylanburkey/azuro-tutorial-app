@@ -25,7 +25,7 @@ export function Header() {
 
   return (
     <header className="container flex items-center py-3.5 border-b border-zinc-200">
-      <div className="text-xl font-semibold">Azuro Betting App</div>
+      <div className="text-xl font-semibold custom-title">Haze Betting</div>
       <div className="flex ml-10">
         <Link
           className="text-zinc-500 hover:text-black transition"

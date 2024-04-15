@@ -27,7 +27,7 @@ const { chains, publicClient } = configureChains(
 
 const { connectors } = getDefaultWallets({
   appName: 'Azuro',
-  projectId: '2f82a1608c73932cfc64ff51aa38a87b', // get your own project ID - https://cloud.walletconnect.com/sign-in
+  projectId: '31ade19a870abe77af74f989c73970da', // get your own project ID - https://cloud.walletconnect.com/sign-in
   chains,
 })
 

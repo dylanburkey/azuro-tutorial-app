@@ -12,14 +12,14 @@ export function GameCard(props: Props) {
 
   return (
     <Link
-      className="p-4 bg-zinc-50 rounded-3xl hover:bg-zinc-100 transition"
+      className="bet-card p-4 bg-zinc-50 rounded-3xl hover:bg-zinc-100 transition"
       href={`/events/${sport.slug}/${gameId}`}
     >
       <div className="flex justify-between text-sm">
         <span>{sport.name}</span>
         <span>{dayjs(startsAt * 1000).format('DD MMM HH:mm')}</span>
       </div>
-      <div className="mt-2 text-sm text-zinc-400">
+      <div className="mt-2 text-sm font-bold">
         {league.country.name} &middot; {league.name}
       </div>
       <div className="mt-3 space-y-1">
