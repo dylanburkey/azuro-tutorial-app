@@ -28,7 +28,7 @@ export default function Bets() {
   }
 
   if (!bets.length) {
-    return <div>You don't have bets yet</div>
+    return <div>You don&#39;t have bets yet</div>
   }
 
   return (
