@@ -3,6 +3,7 @@ import React from 'react'
 import { type Bet, useRedeemBet } from '@azuro-org/sdk'
 import cx from 'clsx'
 
+
 type Props = {
   bets: Bet[]
 }
@@ -17,12 +18,13 @@ export function RedeemAll(props: Props) {
     && bet.isRedeemable
   ))
 
-  const isDisabled = !unredeemedBets.length || isPending || isProcessing || true
+  const isDisabled = !unredeemedBets.length || isPending || isProcessing
 
   const handleRedeem = async () => {
     try {
       await submit({ bets: unredeemedBets })
-    } catch {}
+    }
+    catch {}
   }
 
   let buttonTitle = 'Redeem all'

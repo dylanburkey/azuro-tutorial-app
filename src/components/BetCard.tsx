@@ -19,7 +19,7 @@ const GameStatusText = {
   [GameStatus.Live]: 'Live',
   [GameStatus.Paused]: 'Paused',
   [GameStatus.PendingResolution]: 'Pending resolution',
-  [GameStatus.Preparing]: 'Preparing',
+  [GameStatus.Created]: 'Preparing',
   [GameStatus.Resolved]: 'Resolved',
 }
 
@@ -32,19 +32,20 @@ export function BetCard(props: Props) {
   const {
     createdAt, status: graphBetStatus, amount, outcomes,
     payout, possibleWin, freebetId,
-    isWin, isLose, isCanceled, isRedeemed
+    isWin, isCanceled, isRedeemed, isLive
   } = bet
 
   const { betToken } = useChain()
+  const { submit, isPending, isProcessing } = useRedeemBet()
 
   const betStatus = useMemo(() => {
     return getBetStatus({
       graphStatus: graphBetStatus,
       games: outcomes.map(({ game }) => game),
+      isLiveBet: isLive,
     })
   }, [])
 
-  const { submit, isPending, isProcessing } = useRedeemBet()
   const isDisabled = isPending || isProcessing
 
   let winAmount
@@ -55,7 +56,7 @@ export function BetCard(props: Props) {
     buttonTitle = 'Refund'
   }
   else {
-    winAmount = `${isWin ? '+' : ''}${possibleWin.toFixed(2)} ${betToken.symbol}`
+    winAmount = `${isWin ? '+' : ''}${possibleWin} ${betToken.symbol}`
     buttonTitle = 'Redeem'
   }
 
@@ -98,7 +99,7 @@ export function BetCard(props: Props) {
                   <p className='mr-4'>{dayjs(+startsAt * 1000).format('DD.MM.YYYY, hh:mm A')}</p>
                   <p>{`${countryName}: ${leagueName}`}</p>
                 </div>
-                <p>{GameStatusText[getGameStatus({ graphStatus: gameStatus, startsAt })]}</p>
+                <p>{GameStatusText[getGameStatus({ graphStatus: gameStatus, startsAt: +startsAt, isGameInLive: isLive })]}</p>
               </div>
               <div className="flex items-center">
                 <Link href={`/events/${sportSlug}/${gameId}`} className="flex items-center mr-4">
@@ -121,11 +122,11 @@ export function BetCard(props: Props) {
               <div className="grid md:grid-cols-3 md:gap-16">
                 <div>
                   <p>Market</p>
-                  <p>{marketName}</p>
+                  <p>{ marketName }</p>
                 </div>
                 <div>
                   <p>Outcome</p>
-                  <p>{selectionName}</p>
+                  <p>{ selectionName }</p>
                 </div>
                 <div className="min-w-40 pr-4">
                   <p>Odds</p>
@@ -152,7 +153,7 @@ export function BetCard(props: Props) {
             isRedeemed ? (
               <p>Redeemed</p>
             ) : (
-              Boolean(payout || (isCanceled && !freebetId)) && (
+              Boolean(payout || (isCanceled && !freebetId) || isRedeemed) && (
                 <button
                   className={cx('md:w-[200px] py-3.5 text-white font-semibold text-center rounded-xl', {
                     'bg-blue-500 hover:bg-blue-600 transition shadow-md': !isDisabled,
