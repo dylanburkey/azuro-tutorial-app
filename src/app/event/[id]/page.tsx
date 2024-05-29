@@ -1,9 +1,8 @@
-'use client'
-
+export default Game
 import { useParams } from 'next/navigation'
 import { useGame, useGameMarkets, type GameQuery, useGameStatus, GameStatus } from '@azuro-org/sdk'
 import { GameInfo, GameMarkets } from '@/components'
-
+import React, { ReactNode } from 'react'
 
 type MarketsProps = {
   gameId: string
