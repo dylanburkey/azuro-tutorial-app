@@ -1,53 +1,54 @@
 'use client'
+
 import React from 'react'
-import { ChainProvider } from '@azuro-org/sdk'
-import { ApolloProvider } from '@azuro-org/sdk/nextjs/apollo'
-import { RainbowKitProvider, getDefaultWallets } from '@rainbow-me/rainbowkit'
-import { WagmiConfig, configureChains, createConfig } from 'wagmi'
-import { polygonMumbai } from 'viem/chains'
-import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
-import { publicProvider } from 'wagmi/providers/public'
+import { AzuroSDKProvider, ChainId } from '@azuro-org/sdk'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { RainbowKitProvider, getDefaultWallets, getDefaultConfig } from '@rainbow-me/rainbowkit'
+import { WagmiProvider } from 'wagmi'
+import { polygon, gnosis } from 'viem/chains'
+
+import { BetslipProvider } from '@/context/betslip'
 
 
-const rpcUrls: Record<number, string> = {
-  [polygonMumbai.id]: 'https://polygon-mumbai-bor.publicnode.com',
-}
+const { wallets } = getDefaultWallets()
 
-const { chains, publicClient } = configureChains(
-  [ polygonMumbai ],
-  [
-    jsonRpcProvider({
-      rpc: (chain) => ({
-        http: rpcUrls[chain.id],
-      }),
-    }),
-    publicProvider(),
-  ]
-)
+const chains = [
+  polygon,
+  gnosis,
+] as const
 
-const { connectors } = getDefaultWallets({
+const wagmiConfig = getDefaultConfig({
   appName: 'Azuro',
   projectId: '31ade19a870abe77af74f989c73970da', // get your own project ID - https://cloud.walletconnect.com/sign-in
   chains,
 })
 
-const wagmiConfig = createConfig({
-  connectors,
-  publicClient,
-})
+const queryClient = new QueryClient()
 
-export function Providers(props: { children: React.ReactNode }) {
-  const { children } = props
+type ProvidersProps = {
+  children: React.ReactNode
+  initialChainId?: string
+  initialLiveState?: boolean
+}
+
+export function Providers(props: ProvidersProps) {
+  const { children, initialChainId, initialLiveState } = props
+
+  const chainId = initialChainId
+    ? chains.find(chain => chain.id === +initialChainId) ? +initialChainId as ChainId : polygon.id
+    : polygon.id
 
   return (
-    <WagmiConfig config={wagmiConfig}>
-      <RainbowKitProvider chains={chains}>
-        <ChainProvider initialChainId={polygonMumbai.id}>
-          <ApolloProvider>
-            {children}
-          </ApolloProvider>
-        </ChainProvider>
-      </RainbowKitProvider>
-    </WagmiConfig>
+    <WagmiProvider config={wagmiConfig}>
+      <QueryClientProvider client={queryClient}>
+        <RainbowKitProvider>
+          <AzuroSDKProvider initialChainId={chainId} initialLiveState={initialLiveState}>
+            <BetslipProvider>
+              {children}
+            </BetslipProvider>
+          </AzuroSDKProvider>
+        </RainbowKitProvider>
+      </QueryClientProvider>
+    </WagmiProvider>
   )
 }

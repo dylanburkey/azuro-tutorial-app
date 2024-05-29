@@ -1,10 +1,11 @@
 'use client'
+
 import { useSportsNavigation } from '@azuro-org/sdk'
 import { ActiveLink } from '@/components'
 
 
 export function SportsNavigation() {
-  const { loading, data } = useSportsNavigation({
+  const { loading, sports } = useSportsNavigation({
     withGameCount: true,
   })
 
@@ -12,7 +13,8 @@ export function SportsNavigation() {
     return <div>Loading...</div>
   }
 
-  const sortedSports = [ ...data?.sports || [] ].sort((a, b) => b.games!.length - a.games!.length)
+  // it's simple sort by games count, you can implement your own
+  const sortedSports = [ ...sports || [] ].sort((a, b) => b.games!.length - a.games!.length)
 
   return (
     <div className="w-full mb-8 overflow-hidden">
