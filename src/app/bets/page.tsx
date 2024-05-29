@@ -1,38 +1,35 @@
-'use client'
-import { useBets, OrderDirection } from '@azuro-org/sdk'
-import { useAccount } from 'wagmi'
-import { BetCard, RedeemAll } from '@/components'
+import { useEffect } from 'react';
+import { useBets, OrderDirection } from '@azuro-org/sdk';
+import { useAccount } from 'wagmi';
+import { BetCard, RedeemAll } from '@/components';
 
-const useData = () => {
-  const { address } = useAccount()
-
-  return useBets({
+export default function Bets() {
+  const { address } = useAccount();
+  const { loading, data } = useBets({
     filter: {
       bettor: address!,
     },
     orderDir: OrderDirection.Desc,
-  })
-}
+  });
 
-export default function Bets() {
-  const { loading, data } = useData()
+  useEffect(() => {
+    // Additional logic or side effects can be added here
+  }, [data]);
 
   if (loading) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
 
   if (!data?.length) {
-    return <div>You don't have bets yet</div>
+    return <div>You don&apos;t have bets yet</div>;
   }
 
   return (
     <div>
       <RedeemAll bets={data} />
-      {
-        data.map(bet => (
-          <BetCard key={`${bet.createdAt}-${bet.tokenId}`} bet={bet} />
-        ))
-      }
+      {data.map((bet) => (
+        <BetCard key={`${bet.createdAt}-${bet.tokenId}`} bet={bet} />
+      ))}
     </div>
-  )
+  );
 }
