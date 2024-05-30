@@ -5,13 +5,27 @@ import { ConnectButton } from '@rainbow-me/rainbowkit'
 
 import { SelectAppChain } from './SelectAppChain'
 import { LiveSwitcher } from './LiveSwitcher'
+import Image from 'next/image'
 
 
 export function Header() {
 
   return (
     <header className="container flex items-center py-3.5 border-b border-zinc-200">
-      <div className="text-xl font-semibold custom-title">Haze Betting</div>
+
+
+
+      <div className="text-xl font-semibold custom-title">
+        <Image
+          src="https://www.dgbet.fun/dgbet-logo.png"
+          alt="DGBET Logo"
+          title="DGBET Logo"
+          width={150}
+          height={50}
+          data-type="logo"
+          loading="eager"
+        />
+      </div>
       <div className="flex ml-10">
         <Link
           className="text-zinc-500 hover:text-black transition"
