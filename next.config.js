@@ -15,6 +15,16 @@ const nextConfig = {
 
     return config
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'www.dgbet.fun',
+        port: '',
+        pathname: '/dgbet-logo.png',
+      },
+    ],
+  },
   async redirects() {
     return [
       {

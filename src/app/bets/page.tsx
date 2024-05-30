@@ -1,3 +1,4 @@
+"use client"
 import { useEffect } from 'react';
 import { useBets, OrderDirection } from '@azuro-org/sdk';
 import { useAccount } from 'wagmi';
@@ -13,6 +14,14 @@ export default function Bets() {
   });
 
   useEffect(() => {
+    if (data) {
+      const bets = data.map((bet: { betId: any; bettor: any; amount: any; outcome: any; status: any; }) => {
+        const { betId, bettor, amount, outcome, status } = bet;
+        return { betId, bettor, amount, outcome, status };
+      });
+      console.log(bets);
+    }
+
     // Additional logic or side effects can be added here
   }, [data]);
 

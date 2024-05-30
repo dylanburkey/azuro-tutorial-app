@@ -74,7 +74,7 @@ export function BetCard(props: Props) {
   }
 
   return (
-    <div className="p-4 bg-zinc-50 mt-2 first-of-type:mt-0 rounded-lg bet-card">
+    <div  className="p-4 bg-zinc-50 mt-2 first-of-type:mt-0 rounded-lg bet-card">
       <div className="flex items-center justify-between">
         <p>{dayjs(+createdAt * 1000).format('DD.MM.YYYY, hh:mm A')}</p>
         <p>{BetStatusText[betStatus]}</p>
