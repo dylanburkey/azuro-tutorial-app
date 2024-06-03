@@ -1,6 +1,7 @@
 import { GamesQuery } from '@azuro-org/sdk'
 import Link from 'next/link'
 import dayjs from 'dayjs'
+import Image from 'next/image'
 
 
 type Props = {
@@ -29,7 +30,7 @@ export function GameCard(props: Props) {
               <div className="flex items-center justify-center w-8 h-8 mr-2 border border-zinc-300 rounded-full">
                 {
                   Boolean(image) && (
-                    <img className="w-4 h-4" src={image!} alt="" />
+                    <Image className="w-4 h-4" src={image!} alt="" />
                   )
                 }
               </div>

@@ -12,7 +12,7 @@ export function GameMarkets(props: GameMarketsProps) {
   const { markets } = props
 
   return (
-    <div className="max-w-[600px] mx-auto mt-12 space-y-6">
+    <div className="max-w-[200px] mx-auto mt-12 space-y-6">
       {
         markets.map(({ name, description, outcomeRows }) => (
           <div key={name} className="">

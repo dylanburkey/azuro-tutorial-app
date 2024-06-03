@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --primary-color: #007bff;
+  --primary-color: #007bffc9;
   --secondary-color: #6c757d;
   --success-color: #28a745;
   --info-color: #17a2b8;
@@ -47,7 +47,7 @@ input[type=number] {
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', system-ui;
   font-size: 100%;
   line-height: var(--line-height);
     color: #333;
@@ -82,8 +82,12 @@ h6 {
 }
 
 .custom-title {
-  font-size: 2rem;
-  font-weight: 700;
+  font-size: 0.87rem;
+  font-weight: 400;
+  color: var(--primary-color);
+}
+
+.custom-title:hover {
   color: var(--primary-color);
 }
 
@@ -97,3 +101,16 @@ h6 {
   background-color: var(--primary-color) !important;
   color: var(--white-color);
 }
+
+
+.text-white { color: #FFEB3B !important}
+
+.iekbcc0.ju367v8 {
+  font-size: 65% !important;
+}
+
+body > div:nth-child(1) > header > div > div.iekbcc0.ju367va.ju367v1s > button.iekbcc0.iekbcc9.ju367v4.ju367va3.ju367vn.ju367vei.ju367vfu.ju367va.ju367v16.ju367v1h.ju367v8u._12cbo8i3.ju367v8r._12cbo8i4._12cbo8i6 {
+  font-size: 65% !important;
+}
+
+nav a { font-weight: 600  !important}

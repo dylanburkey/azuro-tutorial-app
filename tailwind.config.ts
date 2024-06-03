@@ -14,7 +14,9 @@ const config: Config = {
         'md': '960px',
       },
     },
-    extend: {},
+    extend: {
+      darkMode: 'selector',
+    },
   },
   plugins: [],
 }

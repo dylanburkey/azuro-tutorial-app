@@ -23,6 +23,12 @@ const nextConfig = {
         port: '',
         pathname: '/dgbet-logo.png',
       },
+      {
+        protocol: 'https',
+        hostname: 'assets.codepen.io',
+        port: '',
+        pathname: '/1315/dgbet-logo.webp?format=auto&quality=68',
+      },
     ],
   },
   async redirects() {

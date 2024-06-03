@@ -1,5 +1,6 @@
 import dayjs from 'dayjs'
 import { type GameQuery } from '@azuro-org/sdk'
+import { namehash } from 'viem'
 
 
 type ParticipantLogoProps = {
@@ -40,11 +41,11 @@ export function GameInfo(props: Props) {
         </div>
       </div>
       <div className="mt-5 grid grid-cols-[1fr_auto_1fr]">
-        <ParticipantLogo {...participants[0]} />
+        <ParticipantLogo name={participants[0].name} image={participants[0].image} />
         <div className="mx-5 pt-7 text-md text-zinc-500">
           {dayjs(+startsAt * 1000).format('DD MMM HH:mm')}
         </div>
-        <ParticipantLogo {...participants[1]} />
+        <ParticipantLogo name={participants[1].name} image={participants[1].image} />
       </div>
     </div>
   )
