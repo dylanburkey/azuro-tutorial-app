@@ -5,6 +5,7 @@ import './globals.css'
 import '@rainbow-me/rainbowkit/styles.css'
 import { Providers, Header } from '@/components'
 import Script from 'next/script'
+import ClarityScript from '@/components/ClarityScript'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,9 +22,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
 
   return (
     <html lang="en">
-      <body className={inter.className}>
-      <Providers initialChainId={initialChainId} initialLiveState={initialLiveState}>
-        <Header />
+      <ClarityScript />
         <Script
         id="ClarityScript"
           strategy="lazyOnload"
@@ -37,6 +36,10 @@ export default function RootLayout(props: { children: React.ReactNode }) {
             `,
           }}
         />
+      <body className={inter.className}>
+      <Providers initialChainId={initialChainId} initialLiveState={initialLiveState}>
+        <Header />
+
         <main className="container pt-5 pb-10">
           {children}
         </main>
